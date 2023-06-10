@@ -14,6 +14,7 @@ class DBFiller:
         self.cur = self.conn.cursor()
 
     def fill_table(self):
+
         try:
             # открытие файла csv и чтение данных
             with open(self.filename, 'r', newline='') as csvfile:
