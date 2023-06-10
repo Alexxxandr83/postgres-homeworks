@@ -3,11 +3,11 @@ DROP TABLE IF EXISTS employees, customers, orders;
 
 create table employees
 (
-	employee_id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+	employee_id INT PRIMARY KEY NOT NULL,
 	first_name VARCHAR(100) NOT NULL,
 	last_name VARCHAR(100) NOT NULL,
 	title text,
-	birth_date INT NOT NULL,
+	birth_date date,
 	notes text	
 );
 
