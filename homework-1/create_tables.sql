@@ -18,10 +18,9 @@ contact_name varchar(100) NOT NULL
 );
 
 CREATE TABLE orders (
-order_id INT REFERENCES employees(employee_id) NOT NULL,
+order_id INT NOT NULL,
 customer_id VARCHAR(100) NOT NULL,
-employee_id int NOT NULL,
+employee_id INT REFERENCES employees(employee_id) NOT NULL NOT NULL,
 order_date date,
 ship_city VARCHAR(100) NOT NULL
 );
-
