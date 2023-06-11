@@ -4,7 +4,7 @@ import csv
 
 
 class DBFiller:
-    def __init__(self, filename, tablename):
+    def __init__(self, filename: object, tablename: object) -> object:
         self.filename = filename
         self.tablename = tablename
 
@@ -23,15 +23,8 @@ class DBFiller:
 
                 # выполнение sql-запросов для вставки данных в таблицу
                 for row in reader:
-                    self.cur.execute(
-                        "insert into {0} ({1}) values ({2})".format(
-                            # - {0} заменяется именем таблицы, указанным при создании экземпляра класса
-                            # - {1} заменяется списком столбцов (заголовков таблицы), разделенных запятой и указанных при создании экземпляра класса
-                            # - {2} заменяется на список значения строки, которая была передана в метод insert
-                            self.tablename,
-                            ','.join(headers),
-                            ','.join(['%s'] * len(headers))
-                        ), row)
+                    query = f"insert into {self.tablename} ({','.join(headers)}) values ({','.join(['%s'] * len(headers))})"
+                    self.cur.execute(query, row)
 
                     # подтверждение транзакции
                     self.conn.commit()
@@ -41,11 +34,15 @@ class DBFiller:
             self.cur.close()
             self.conn.close()
 
-#
+
 # if __name__ == 'main':
-#     # employees = DBFiller('employees_data.csv', 'employees')
-#     # employees.fill_table()
-#     # customers = DBFiller('customers_data.csv', 'customers')
-#     # customers.fill_table()
-#     # orders = DBFiller('orders_data.csv', 'orders')
-#     # orders.fill_table()
+#     employees = DBFiller('employees_data.csv', 'employees')
+#     print(employees.fill_table())
+#     customers = DBFiller('customers_data.csv', 'customers')
+#     customers.fill_table()
+#     orders = DBFiller('orders_data.csv', 'orders')
+#     orders.fill_table()
+
+emp = DBFiller('north_data/customers_data.csv', 'x3')
+print(emp.filename)
+emp.fill_table()
