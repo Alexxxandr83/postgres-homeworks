@@ -33,9 +33,25 @@ ORDER BY count_suppliers DESC
 
 -- 5. суммарный вес заказов (в которых известен регион) по странам, но вывести только те результаты, где суммарный вес на страну больше 2750. Отсортировать по убыванию суммарного веса (см таблицу orders, колонки ship_region, ship_country, freight)
 
-
+SELECT ship_country, SUM(freight) AS total_freight 
+FROM orders 
+WHERE ship_region IS NOT NULL 
+GROUP BY ship_country 
+HAVING SUM(freight) > 2750 
+ORDER BY total_freight DESC
 
 -- 6. страны, в которых зарегистрированы и заказчики (customers) и поставщики (suppliers) и работники (employees).
 
+SELECT DISTINCT country
+FROM (
+  SELECT country FROM customers
+  UNION
+  SELECT country FROM suppliers
+  UNION
+  SELECT country FROM employees
+) AS all_participants
 
 -- 7. страны, в которых зарегистрированы и заказчики (customers) и поставщики (suppliers), но не зарегистрированы работники (employees).
+SELECT country FROM customers
+WHERE country IN (SELECT country FROM suppliers)
+AND country NOT IN (SELECT country FROM employees);
