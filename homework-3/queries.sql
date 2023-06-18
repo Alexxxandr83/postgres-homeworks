@@ -8,6 +8,17 @@
 -- которые не сняты с продажи (поле discontinued) и которых меньше 25 и которые в категориях Dairy Products и Condiments.
 -- Отсортировать результат по возрастанию количества оставшегося товара.
 
+SELECT product_name, units_in_stock, suppliers.contact_name, suppliers.phone
+FROM products
+JOIN suppliers USING (supplier_id)
+WHERE products.discontinued = 0
+	AND units_in_stock < 25
+	AND category_id IN(SELECT category_id FROM categories
+					  WHERE category_id = 4 OR category_id = 2)
+ORDER BY units_in_stock
+
+--Не согласен с результатами в скриншоте. product_name: vegie_spread,
+
 
 -- 3. Список компаний заказчиков (company_name из табл customers), не сделавших ни одного заказа
 
