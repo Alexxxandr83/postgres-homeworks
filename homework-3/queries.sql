@@ -6,7 +6,7 @@ SELECT company_name, CONCAT(employees.first_name, ' ', employees.last_name) as f
 FROM customers
 JOIN employees USING(city)
 JOIN orders USING(customer_id)
-WHERE city = 'London'
+WHERE city = 'London' AND ship_via = 2
 
 
 -- 2. Наименование продукта, количество товара (product_name и units_in_stock в табл products),
