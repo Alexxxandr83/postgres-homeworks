@@ -17,10 +17,15 @@ WHERE products.discontinued = 0
 					  WHERE category_id = 4 OR category_id = 2)
 ORDER BY units_in_stock
 
---Не согласен с результатами в скриншоте. product_name: vegie_spread,
+
 
 
 -- 3. Список компаний заказчиков (company_name из табл customers), не сделавших ни одного заказа
+
+SELECT company_name
+FROM customers
+LEFT JOIN orders USING(customer_id)
+WHERE orders.customer_id IS NULL
 
 
 -- 4. уникальные названия продуктов, которых заказано ровно 10 единиц (количество заказанных единиц см в колонке quantity табл order_details)
